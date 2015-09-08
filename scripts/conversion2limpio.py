@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import csv
-
+#sirve para imprimir todo un archivo
 reader = csv.reader(open('todos-crimenes.csv', 'rb'))
 #print "Crime ID"," Month "," Reported by ","Falls within","Longitude","Latitude","Location","LSOA code","LSOA name","Crime type","Last outcome category","Context"
 #omito la primera linea que es la cabecera
