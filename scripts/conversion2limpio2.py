@@ -11,7 +11,7 @@ for index,row in enumerate(reader):
     #con .join creo el array como una cadena larga
     if not (( 'Crime ID' in " ".join(row)) or ( 'Reported by' in " ".join(row))) :
         #Crime ID lo transforme en String para evitar embasuramiento
-        print  '{'+'"Month":'+'"'+row[1]+'"'+','+ '"Reported by":'+'"'+row[2]+'"'+','+'"Falls within":'+'"'+ row[3]+'"'+','+'"Longitude":'+ row[4]+','+'"Latitude":'+row[5]+','+'"Location":'+'"'+ row[6]+'"'+','+'"LSOA code":'+'"'+row[7]+'"'+','+'"LSOA name":'+'"'+row[8]+'"'+','+'"Crime type":'+'"'+ row[9]+'"'+','+'"Last outcome category":'+'"'+row[10]+'"'+','+'"Context":'+'"'+row[11]+'"'+'}'
+        print  '{'+'"Crime ID":'+'"'+row[0]+'"'+','+'"Month":'+'"'+row[1]+'"'+','+'"Reported by":'+'"'+row[2]+'"'+','+'"Falls within":'+'"'+ row[3]+'"'+','+'"Longitude":'+ row[4]+','+'"Latitude":'+row[5]+','+'"Location":'+'"'+ row[6]+'"'+','+'"LSOA code":'+'"'+row[7]+'"'+','+'"LSOA name":'+'"'+row[8]+'"'+','+'"Crime type":'+'"'+ row[9]+'"'+','+'"Last outcome category":'+'"'+row[10]+'"'+','+'"Context":'+'"'+row[11]+'"'+'}'
         print '\n'
    
     #if index > 2:
