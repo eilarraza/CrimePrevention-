@@ -20,7 +20,7 @@ cd s3fs-1.74
 ./configure --prefix=/usr/local
 make && make install
 
-echo AKIAILPF44AI6FPDD43A:5NOWefTzLSQ9AC3oTafPAGz5d+KMROCoPffhE78v > ~/.passwd-s3fs
+echo login:pass > ~/.passwd-s3fs
 chmod 600 ~/.passwd-s3fs
 
 mkdir /tmp/cache
