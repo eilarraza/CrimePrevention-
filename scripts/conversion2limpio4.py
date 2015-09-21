@@ -4,7 +4,7 @@ import csv
 #tambien reemplaza el caracter ; por '' siempre y cuando se encuentre seguido de caracteres que sean ';\r\n'
 #tambien reemplaza el caracter ; por , cuando este no termina en ';\r\n'
 
-reader = csv.reader(open('todos-crimenes3.csv', 'rb'))
+reader = csv.reader(open('todos-crimenes4.csv', 'rb'))
 #print "Crime ID"," Month "," Reported by ","Falls within","Longitude","Latitude","Location","LSOA code","LSOA name","Crime type","Last outcome category","Context"
 #omito la primera linea que es la cabecera
 #salto=0
