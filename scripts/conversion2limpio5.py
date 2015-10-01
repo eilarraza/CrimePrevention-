@@ -17,9 +17,9 @@ for index,row in enumerate(reader):
     #con .join creo el array como una cadena larga, la idea es eliminar las comillas dobles de las cadenas
     if '"' in locacion:
 	    #limpiamos las comillas dobles de la columna que la tenga, pero dejamos la coma
-	    locacion.replace('"', '')
+	    locacion.replace('"', ' ')
 	    row[6]=locacion
     if not (( 'Crime ID' in " ".join(row)) or ( 'Reported by' in " ".join(row))):
         #Crime ID lo transforme en String y se omite para evitar embasuramiento
-        print  '{'+'"Month":'+'"'+row[1]+'"'+','+ '"Reported_by":'+'"'+row[2]+'"'+','+'"Falls_withiin":'+'"'+ row[3]+'"'+','+'"Longitude":'+ row[4]+','+'"Latitude":'+row[5]+','+'"Location":'+'"'+ row[6]+'"'+','+'"LSOA_code":'+'"'+row[7]+'"'+','+'"LSOA_name":'+'"'+row[8]+'"'+','+'"Crime_type":'+'"'+ row[9]+'"'+','+'"Last_outcome_category":'+'"'+row[10]+'"'+','+'"Context":'+'"'+row[11]+'"'+'}'
+        print  '{'+'"Month":'+'"'+row[1]+'"'+','+ '"Reported_by":'+'"'+row[2]+'"'+','+'"Falls_within":'+'"'+ row[3]+'"'+','+'"Longitude":'+ row[4]+','+'"Latitude":'+row[5]+','+'"Location":'+'"'+ row[6]+'"'+','+'"LSOA_code":'+'"'+row[7]+'"'+','+'"LSOA_name":'+'"'+row[8]+'"'+','+'"Crime_type":'+'"'+ row[9]+'"'+','+'"Last_outcome_category":'+'"'+row[10]+'"'+','+'"Context":'+'"'+row[11]+'"'+'}'
  
