@@ -1,5 +1,5 @@
 apt-get update
-apt-get upgrade
+apt-get -y upgrade
 #yum -y install libcurl libcurl-devel
 sudo apt-get remove fuse
 sudo apt-get install build-essential libcurl4-openssl-dev libxml2-dev mime-support
