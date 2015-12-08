@@ -33,7 +33,7 @@ def creandobigfile(nombreFusionar):
         if('\"Crime_type\"'+':'+'"Bicycle theft"' in linea):
             linea=linea.replace('\"Crime_type\"'+':'+'"Bicycle theft"', '\"Crime_type\"'+':'+'2')
         if('\"Crime_type\"'+':'+'"Burglary"' in linea):
-            linea=linea.replace('"Burglary"', '\"Crime_type\"'+':'+'3')
+            linea=linea.replace('\"Crime_type\"'+':'+'"Burglary"', '\"Crime_type\"'+':'+'3')
         if('\"Crime_type\"'+':'+'"Criminal damage and arson"' in linea):
             linea=linea.replace('\"Crime_type\"'+':'+'"Criminal damage and arson"', '\"Crime_type\"'+':'+'4')
         if('\"Crime_type\"'+':'+'"Drugs"' in linea):
