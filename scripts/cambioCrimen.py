@@ -28,38 +28,39 @@ def creandobigfile(nombreFusionar):
     while linea!="":   
         linea=Acsv.readline()
              #print str(row)
-        if("Anti-social behaviour" in linea):
-            linea=linea.replace('"Anti-social behaviour"', '1')
-        if("Bicycle theft" in linea):
-            linea=linea.replace('"Bicycle theft"', '2')
-        if("Burglary" in linea):
-            linea=linea.replace('"Burglary"', '3')
-        if("Criminal damage and arson" in linea):
-            linea=linea.replace('"Criminal damage and arson"', '4')
-        if("Drugs" in linea):
-            linea=linea.replace('"Drugs"', '5')
-        if("Other crime" in linea):
-            linea=linea.replace('"Other crime"', '6')
-        if("Other theft" in linea):
-            linea=linea.replace('"Other theft"', '7')
-        if("Possession of weapons" in linea):
-            linea=linea.replace('"Possession of weapons"', '8')
-        if("Public disorder and weapons" in linea):
-            linea=linea.replace('"Public disorder and weapons"', '9')
-        if("Public order" in linea):
-            linea=linea.replace('"Public order"', '10')
-        if("Robbery" in linea):
-            linea=linea.replace('"Robbery"', '11')
-        if("Shoplifting" in linea):
-            linea=linea.replace('"Shoplifting"', '12')
-        if("Theft from the person" in linea):
-            linea=linea.replace('"Theft from the person"', '13')
-        if("Vehicle crime" in linea):
-            linea=linea.replace('"Vehicle crime"', '14')     
-        if("Violence and sexual offences" in linea):
-            linea=linea.replace('"Violence and sexual offences"', '15')  
-        if("Violent crime" in linea):
-            linea=linea.replace('"Violent crime"', '16')
+        if('\"Crime_type\"'+':'+'"Anti-social behaviour"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Anti-social behaviour"', '\"Crime_type\"'+':'+'1') 
+        if('\"Crime_type\"'+':'+'"Bicycle theft"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Bicycle theft"', '\"Crime_type\"'+':'+'2')
+        if('\"Crime_type\"'+':'+'"Burglary"' in linea):
+            linea=linea.replace('"Burglary"', '\"Crime_type\"'+':'+'3')
+        if('\"Crime_type\"'+':'+'"Criminal damage and arson"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Criminal damage and arson"', '\"Crime_type\"'+':'+'4')
+        if('\"Crime_type\"'+':'+'"Drugs"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Drugs"', '\"Crime_type\"'+':'+'5')
+        if('\"Crime_type\"'+':'+'"Other crime"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Other crime"', '\"Crime_type\"'+':'+'6')
+        if('\"Crime_type\"'+':'+'"Other theft"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Other theft"', '\"Crime_type\"'+':'+'7')
+        if('\"Crime_type\"'+':'+'"Possession of weapons"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Possession of weapons"', '\"Crime_type\"'+':'+'8')
+        if('\"Crime_type\"'+':'+'"Public disorder and weapons"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Public disorder and weapons"', '\"Crime_type\"'+':'+'9')
+        if('\"Crime_type\"'+':'+'"Public order"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Public order"', '\"Crime_type\"'+':'+'10')
+        if('\"Crime_type\"'+':'+'"Robbery"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Robbery"', '\"Crime_type\"'+':'+'11')
+        if('\"Crime_type\"'+':'+'"Shoplifting"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Shoplifting"', '\"Crime_type\"'+':'+'12')
+        if('\"Crime_type\"'+':'+'"Theft from the person"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Theft from the person"', '\"Crime_type\"'+':'+'13')
+        if('\"Crime_type\"'+':'+'"Vehicle crime"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Vehicle crime"', '\"Crime_type\"'+':'+'14')
+        if('\"Crime_type\"'+':'+'"Violence and sexual offences"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Violence and sexual offences"', '\"Crime_type\"'+':'+'15')
+        if('\"Crime_type\"'+':'+'"Violent crime"' in linea):
+            linea=linea.replace('\"Crime_type\"'+':'+'"Violent crime"' , '\"Crime_type\"'+':'+'16')
+
 
         #transformo vector de string en cadena y automatica elimino corchetes
         #cad=",".join(row)
