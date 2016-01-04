@@ -26,7 +26,7 @@ def creandobigfile(nombreFusionar):
     f = open ("todos-crimenes-tipo.json", "w")
     linea=Acsv.readline()
     while linea!="":   
-        linea=Acsv.readline()
+ 
              #print str(row)
         if('\"Crime_type\"'+':'+'"Anti-social behaviour"' in linea):
             linea=linea.replace('\"Crime_type\"'+':'+'"Anti-social behaviour"', '\"Crime_type\"'+':'+'1') 
