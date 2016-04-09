@@ -1,0 +1,82 @@
+############################################################################
+## De la consulta anterior genero ahora los limites maximos y minimos, para clasificarlos con los colores 
+## formula: Long.Clas.=Ampl.(Val.May.-Val.men) / K(numero de clases)
+###################################################################
+from pyspark.sql import SQLContext
+import os,sys
+import json 
+import subprocess
+from pyspark.sql import SQLContext, Row #para poder usar la funcion Row que permite crear nuevos RDD de sql
+#tomamos el contexto spark y lo pasamos a el contexto sc
+sqlContext = SQLContext(sc) 
+#sqlContext =  HiveContext(sc) # where sc is a SparkContext
+#df = sqlContext.read.json("///home/ec2-user/crimenesOrdenadosEnCiudadesMes.json")
+df = sqlContext.read.json("///home/ubuntu/descargas/crimenesTotalesProvincias2010.json")
+df.registerTempTable("citys")
+
+result = sqlContext.sql("select max(Cantidad) Cantidad from citys ")
+filas=result.map(lambda fila: str(fila.Cantidad))
+#maximo de los crimenes en alguna pronvincia
+maximo=filas.collect()[0]
+
+result = sqlContext.sql("select min(Cantidad) Cantidad from citys ")
+filas=result.map(lambda fila: str(fila.Cantidad))
+#minimo de los crimenes en alguna pronvincia
+minimo=filas.collect()[0]
+
+#dividiendo la longitud de las clases
+Amp=3 #de momento 3 colores para dividir los rangos
+LC=0
+
+LC=(int(maximo)-int(minimo))/Amp
+print LC
+
+ 
+#coloco la variable python dentro de la consulta spark
+propiedad = str('{"marker-color": "#00FF00"}') #color verde
+#fusiono la propiedad como una columna string en la consulta
+result = sqlContext.sql("select  Month, LSOA_name, Cantidad,  '"+propiedad+"' properties   from citys where Cantidad <"+str(LC)+" order by Cantidad")
+filas=result.map(lambda fila: ' Cantidad: '+str(fila.Cantidad)+ ' Nombre: '+str(fila.LSOA_name)+ ' Mes: '+str(fila.Month) + ' properties: '+str(fila.properties))
+
+propiedad = str('{"marker-color": "FFCC00"}')  #color naranja
+result2 = sqlContext.sql("select  Month, LSOA_name, Cantidad, '"+propiedad+"' properties  from citys where Cantidad >="+str(LC)+" and Cantidad <"+str(LC*2)+" order by Cantidad")
+filas2=result.map(lambda fila: ' Cantidad: '+str(fila.Cantidad)+ ' Nombre: '+str(fila.LSOA_name)+ ' Mes: '+str(fila.Month) + ' Color: '+str(fila.properties))
+
+propiedad = str('{"marker-color": "FF0000"}')  #color rojo
+result3 = sqlContext.sql("select  Month, LSOA_name, Cantidad, '"+propiedad+"' properties  from citys where Cantidad >="+str(2*LC)+" order by Cantidad")
+filas3=result.map(lambda fila: ' Cantidad: '+str(fila.Cantidad)+ ' Nombre: '+str(fila.LSOA_name)+ ' Mes: '+str(fila.Month) + ' Color: '+str(fila.properties))
+
+
+Querys1= sc.parallelize((result.collect())) 
+Querys2= sc.parallelize((result2.collect())) 
+Querys3= sc.parallelize((result3.collect())) 
+#uno los RDD con la funcion union
+fusionQuerys=Querys1.union(Querys2)
+fusionQuerys=fusionQuerys.union(Querys3 )
+#convierto a tipo dataframe
+todosQuerys=sqlContext.inferSchema(fusionQuerys)
+#registro la nueva tabla con todos los atributos
+todosQuerys.registerTempTable("calculado")
+
+result = sqlContext.sql("select  Month, LSOA_name, Cantidad, properties from calculado  order by Cantidad")
+filas=result.map(lambda fila: ' Cantidad: '+str(fila.Cantidad)+ ' Nombre: '+str(fila.LSOA_name)+ ' Mes: '+str(fila.Month) + ' Color: '+str(fila.properties))
+
+i=0
+for linea in filas.collect():
+    print  str(linea)
+    i=i+1
+
+f = open ("crimenesColoreados.json",'w')
+resultado=result.toJSON() 
+i=0
+for linea in resultado.collect():
+    #print '#:'+str(i)+' '+str(linea)
+    f.write(linea+'\n')
+    i=i+1
+
+f.close()
+
+#no hay de otra sino esta manera para subirla al S3, podra no ser optima pero solucionamos
+subprocess.call(['aws', 's3', '--region', 'us-east-1', 'cp', 'crimenesColoreados.json', 's3://databritanica/salidaQuerys/crimenesColoreados.json'])
+
+

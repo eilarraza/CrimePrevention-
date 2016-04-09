@@ -1,0 +1,39 @@
+############################################################################
+## consulta para generar la lista de los nombre de los ciudades de inglaterra contenidas en la data 
+###################################################################
+from pyspark.sql import SQLContext
+import os,sys
+import json 
+import subprocess
+#tomamos el contexto spark y lo pasamos a el contexto sc
+sqlContext = SQLContext(sc) 
+#sqlContext =  HiveContext(sc) # where sc is a SparkContext
+df = sqlContext.read.json("///home/ec2-user/crimenesOrdenadosEnCiudadesMes.json")
+#df = sqlContext.read.json("///home/ubuntu/descargas/crimenesOrdenadosEnCiudadesMes.json")
+df.registerTempTable("citys")
+
+#result = sqlContext.sql("select  LSOA_name, Cantidad from citys order by LSOA_name")
+#result = sqlContext.sql("select  Month, length(LSOA_name) LSOA_name, Cantidad from citys where Month='2010-12' and LSOA_name='Bristol 040B' ")
+result = sqlContext.sql("select distinct substr(LSOA_name,1,length(LSOA_name)-5) LSOA_name from citys order by LSOA_name ")
+filas=result.map(lambda fila:  ' provincia: '+str(fila.LSOA_name) )
+	
+i=0
+for linea in filas.collect():
+    print  str(linea)
+    i=i+1
+
+	
+f = open ("nombreCiudades.json",'w')
+resultado=result.toJSON() 
+i=0
+for linea in resultado.collect():
+    #print '#:'+str(i)+' '+str(linea)
+    f.write(linea+'\n')
+    i=i+1
+
+f.close()
+
+#no hay de otra sino esta manera para subirla al S3, podra no ser optima pero solucionamos
+subprocess.call(['aws', 's3', '--region', 'us-east-1', 'cp', 'nombreCiudades.json', 's3://databritanica/salidaQuerys/nombreCiudades.json'])
+
+
